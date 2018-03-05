@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sample.mapper.SampleMapper">
+	<insert id="insertSample" parameterType="com.sample.vo.TSample">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select t_sample_seq.nextval from dual
+		</selectKey>
+		insert into t_sample(
+			id
+			, text1
+			, text2
+			, create_date
+		)values(
+			${id}
+			, #{text1}
+			, #{text2}
+			, #{createDate, jdbcType=DATE}
+		)
+	</insert>
+	
+	<update id="updateSample" parameterType="com.sample.vo.TSample">
+		update t_sample
+		set text1 = #{text1}
+			, text2 = #{text2}
+		where id = ${id}
+	</update>
+	
+	<select id="getSample" parameterType="com.sample.vo.TSample" resultType="com.sample.vo.TSample">
+		select
+		<choose>
+			<when test="queryType == 'cnt'">
+				count(id) as count
+			</when>
+			<otherwise>
+				id
+				, text1
+				, text2
+				, create_date as createDate
+			</otherwise>
+		</choose>
+		from t_sample
+		<if test="id != null">
+		where id = ${id}
+		</if>
+	</select>
+	
+	<select id="cacheSample" resultType="com.sample.vo.TSample">
+		select
+			id
+			, text1
+			, text2
+			, create_date as createDate
+		from t_sample
+		where id = ${id}
+	</select>
+</mapper>
