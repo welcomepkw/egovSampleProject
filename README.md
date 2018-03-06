@@ -10,7 +10,8 @@ Contents
 4. tiles
 5. transaction
 6. ehcache
-7. samples
+7. lombok
+8. samples
 
 
 eGov
@@ -63,6 +64,13 @@ ehcache
 	* SampleMapper.java -> @Cacheable 참조
 	* 파라미터값이 변경될 경우 ehcache.xml 파일의 정보를 참조하여 룰에 의해 cache 생성
 	
+lombok
+-------------
+* version : 1.16.20
+* description
+	* value object 의 getter setter 자동 생성을 위해 사용
+	* TSample.java -> @Getter, @Setter, @ToString 참조
+
 samples
 -------------
 * CRUD samples
