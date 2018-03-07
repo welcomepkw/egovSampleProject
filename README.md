@@ -12,6 +12,7 @@ Contents
 6. ehcache
 7. lombok
 8. samples
+9. change log
 
 
 eGov
@@ -101,4 +102,14 @@ samples
 		* settings : context-fileUpload.xml, context-customBeans.xml
 	* test : /file/file.do
 	* description : /KAL_DEV/upload 에 파일 업로드 기능 구현. browser로 업로드 파일 test 하기 위해서는 local PC 에 web server 구동 필요.
+	
+change log
+-------------
+* 18.03.07
+	* @Valid 작동이 안되고 있어 수정.
+		* dispatch-servlet.xml 에 <mvc:annotation-driven /> 추가, pom.xml 에 hibernate-validator 추가
+	* web.xml 에 exception 핸들링 추가 및 ErrorController.java, exception.jsp 추가
+	* file upload 기능 구현.
+		* samples -> file upload Sample 참조
+	* 일부 controller 에서 response 값을 json 으로 출력하기 위해 하던 프로세스를 @responsebody 로 전환.
 

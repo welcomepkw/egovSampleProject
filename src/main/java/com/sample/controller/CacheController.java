@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sample.service.CacheService;
 import com.sample.vo.TSample;
 
@@ -24,17 +24,14 @@ public class CacheController {
 	private CacheService cacheService;
 	
 	@RequestMapping(value="/test.do", method=RequestMethod.GET)
-	public void test(
+	public @ResponseBody List<TSample> test(
 				@ModelAttribute TSample tSample
 				, HttpServletResponse response
 			) throws SQLException, IOException{
 		
 		List<TSample> datas = cacheService.cacheSample(tSample.getId());
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(datas.get(0));
+		return datas;
 		
-		response.setContentType("application/json");
-		response.getWriter().write(json);
 	}
 }

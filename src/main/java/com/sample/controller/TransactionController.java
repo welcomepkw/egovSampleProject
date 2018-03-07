@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sample.service.SampleService;
 import com.sample.service.TransactionService;
 import com.sample.vo.TSample;
@@ -37,7 +37,7 @@ public class TransactionController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/test.do", method=RequestMethod.GET)
-	public void test(
+	public @ResponseBody Map<String, Object> test(
 				@ModelAttribute TSample tSample
 				, HttpServletResponse response
 			) throws SQLException, IOException {
@@ -54,10 +54,6 @@ public class TransactionController {
 		result.put("paramData", tSample);
 		result.put("resultData", datas.get(0));
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(result);
-		
-		response.setContentType("application/json");
-		response.getWriter().write(json);
+		return result;
 	}
 }

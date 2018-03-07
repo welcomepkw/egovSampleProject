@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sample.common.FileUpload;
 import com.sample.common.FileUpload.FileExtentionException;
 import com.sample.common.FileUpload.FileSizeException;
@@ -57,7 +57,7 @@ public class FileController {
 	 * @param mRequest
 	 */
 	@RequestMapping(value="/filePS.do", method=RequestMethod.POST)
-	public void filePS(
+	public @ResponseBody FileUploadResult filePS(
 				MultipartHttpServletRequest mRequest
 				, HttpServletResponse response
 			){
@@ -73,12 +73,7 @@ public class FileController {
 			// local에 apache webserver 를 구동하여 /KAL_DEV/upload 폴더를 http://localhost/upload 로 접근 가능하게 하여야 테스트 가능 함.
 			logger.debug("access url : " + fileUrl + "/" + result.getFileName());
 			
-			ObjectMapper mapper = new ObjectMapper();
-			String json = mapper.writeValueAsString(result);
-			
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("application/json");
-			response.getWriter().write(json);
+			return result;
 			
 			
 		} catch (FileSizeException e) {
@@ -89,5 +84,6 @@ public class FileController {
 			e.printStackTrace();
 		} 
 		
+		return null;
 	}
 }

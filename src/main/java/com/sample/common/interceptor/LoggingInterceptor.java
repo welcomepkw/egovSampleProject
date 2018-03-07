@@ -28,10 +28,22 @@ public class LoggingInterceptor extends HandlerInterceptorAdapter {
 		super.afterConcurrentHandlingStarted(request, response, handler);
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		
+		logger.debug("########## end request ##########");
+		
+		super.postHandle(request, response, handler, modelAndView);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		
+		
 		
 		logger.debug("########## start request ##########");
 		logger.debug("- request uri:"+request.getRequestURI());
@@ -43,15 +55,6 @@ public class LoggingInterceptor extends HandlerInterceptorAdapter {
 			
 			logger.debug("	"+key+":"+request.getParameter(key));
 		}
-		
-		super.postHandle(request, response, handler, modelAndView);
-	}
-
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		
-		logger.debug("########## end request ##########");
 		
 		return super.preHandle(request, response, handler);
 	}
