@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sample.common.exception.BadReqeustException;
 import com.sample.service.SampleService;
 import com.sample.vo.TSample;
 
@@ -69,18 +70,21 @@ public class SampleController {
 	 * @param tSample
 	 * @return
 	 * @throws SQLException 
+	 * @throws BadReqeustException 
 	 */
 	@RequestMapping(value="/createPS.do", method=RequestMethod.POST)
 	public String createPS(
 				@ModelAttribute @Valid TSample tSample
 				, BindingResult bindingResult
-			) throws SQLException{
+			) throws SQLException, BadReqeustException{
 		
 		if(bindingResult.hasErrors()){
 			// server side validation check
 			for(ObjectError error : bindingResult.getAllErrors()){
 				logger.debug(error.getDefaultMessage());
 			}
+			
+			throw new BadReqeustException("bad request");
 		}
 		
 		// set create date
@@ -136,13 +140,15 @@ public class SampleController {
 	public String updatePS(
 				@ModelAttribute @Valid TSample tSample
 				, BindingResult bindingResult
-			) throws SQLException{
+			) throws SQLException, BadReqeustException{
 		
 		if(bindingResult.hasErrors()){
 			// server side validation check
 			for(ObjectError error : bindingResult.getAllErrors()){
 				logger.debug(error.getDefaultMessage());
 			}
+			
+			throw new BadReqeustException("bad request");
 		}
 		
 		// if update success then resultCnt is update row count numbers
