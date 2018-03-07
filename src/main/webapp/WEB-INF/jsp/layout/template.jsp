@@ -18,6 +18,7 @@
 </div>
 <tiles:insertAttribute name="footer"/>
 <script type="text/javascript" src='<c:url value="/resources/vender/jquery_validate/jquery.validate-1.17.0.min.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/vender/jquery_validate/additional-methods.min.js"/>'></script>
 </body>
 </html>
 

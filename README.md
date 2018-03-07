@@ -94,5 +94,11 @@ samples
 		* mapper : SampleMapper.java, Samplemapper.xml
 	* test : /cache/test.do?id=17
 	* description : console 의 로그상 서버 구동 후 1회 조회시 sql log 보인 후 같은 id로 2회 차 조회시 sql log 보이지 않을경우 cache 정상 작동.
-
+* file upload Sample
+	* common info
+		* controller : FileController.java
+		* util : FileUpload.java
+		* settings : context-fileUpload.xml, context-customBeans.xml
+	* test : /file/file.do
+	* description : /KAL_DEV/upload 에 파일 업로드 기능 구현. browser로 업로드 파일 test 하기 위해서는 local PC 에 web server 구동 필요.
 

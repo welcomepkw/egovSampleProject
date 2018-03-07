@@ -23,7 +23,7 @@ function submitData(){
     rules: {
       file1: {
       	required: true,
-      	accept: "image/jpeg, image/pjpeg"
+      	extension: "jpg|png"
       }
       
     },
@@ -31,7 +31,7 @@ function submitData(){
     messages: {
       file1: {
         required: "파일을 선택해 주세요.",
-        accept: "jpg 파일만 가능합니다."
+        extension: "jpg png 만 가능합니다."
       }
     },
     submitHandler: function(form) {
