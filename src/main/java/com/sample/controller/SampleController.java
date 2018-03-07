@@ -136,6 +136,14 @@ public class SampleController {
 		return "sample/update";
 	}
 	
+	/**
+	 * update process
+	 * @param tSample
+	 * @param bindingResult
+	 * @return
+	 * @throws SQLException
+	 * @throws BadReqeustException
+	 */
 	@RequestMapping(value="/updatePS.do", method=RequestMethod.POST)
 	public String updatePS(
 				@ModelAttribute @Valid TSample tSample
@@ -162,4 +170,5 @@ public class SampleController {
 		// redirect to list
 		return "redirect:/sample/list.do";
 	}
+	
 }
