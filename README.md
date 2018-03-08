@@ -114,4 +114,5 @@ change log
 	* 일부 controller 에서 response 값을 json 으로 출력하기 위해 하던 프로세스를 @responsebody 로 전환.
 	* dispatch-servlet.xml 에 interceptor 설정 변경
 	* /src/main/resources/config/database 와 /src/main/resources/config/system 에 각 서버 별 빈 설정파일 추가. 
-
+* 18.03.08
+	* egov paging 처리 추가 및 기존 list 출력 샘플 query 수정
