@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" 		uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <style>
 	li{
 		cursor: pointer;
@@ -26,9 +27,16 @@
 			</li>
 		</c:forEach>
 	</ul>	
+	<div>
+		<ui:pagination paginationInfo = "${paginationInfo}" type="text" jsFunction="linkPage"/>
+	</div>
 </div>
 <script type="text/javascript">
 function moveUpdate(id){
 	window.location.href = '<c:url value="/sample/update.do"/>?id='+id;
+}
+
+function linkPage(page){
+	window.location.href = '<c:url value="/sample/list.do"/>?currentPageNo='+page;
 }
 </script>

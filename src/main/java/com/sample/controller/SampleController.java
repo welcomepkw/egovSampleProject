@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,8 @@ import com.sample.common.exception.BadReqeustException;
 import com.sample.service.SampleService;
 import com.sample.vo.TSample;
 
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+
 /**
  * CRUD sample controller
  * @author v.kwpark
@@ -32,6 +35,12 @@ import com.sample.vo.TSample;
 public class SampleController {
 
 	Logger logger = LogManager.getLogger(SampleController.class); 
+	
+	@Value("#{commonProp['system.paging.rowCnt']}")
+	private int pagingRowCnt;
+	
+	@Value("#{commonProp['system.paging.pageSize']}")
+	private int pagingPageSize;
 	
 	@Autowired
 	private SampleService sampleService;
@@ -44,14 +53,38 @@ public class SampleController {
 	 */
 	@RequestMapping(value="/list.do", method=RequestMethod.GET)
 	public String list(
-				Model model
+				@ModelAttribute TSample tSample
+				, Model model
 			) throws SQLException{
 		
-		// get data from DB
-		List<TSample> datas = sampleService.getSample(null);
 		
-		// send data to view
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(tSample.getCurrentPageNo()); //현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(pagingRowCnt); //한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(pagingPageSize); //페이징 리스트의 사이즈
+ 
+		// 페이징 처리를 위해 쿼리에 시작, 종료 값 전달
+		int pagingStart = paginationInfo.getFirstRecordIndex() + 1;
+	    int pagingEnd = (pagingStart-1) + paginationInfo.getRecordCountPerPage();
+
+		tSample.setPagingStart(pagingStart);
+		tSample.setPagingEnd(pagingEnd);
+ 
+		// get datas from DB
+		List<TSample> datas = sampleService.getSample(tSample);
+		
+		// set totalCnt
+		if(datas != null && datas.size() > 0){
+			paginationInfo.setTotalRecordCount(datas.get(0).getTotalCnt()); //전체 게시물 건 수
+		}else{
+			paginationInfo.setTotalRecordCount(0);
+		}
+		
+ 
+		//페이징 관련 정보가 있는 PaginationInfo 객체를 모델에 반드시 넣어준다.
+		model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("datas", datas);
+		
 		
 		return "sample/list";
 	}

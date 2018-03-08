@@ -37,11 +37,11 @@ import org.springframework.web.context.ServletContextAware;
  *
  *  Copyright (C) by MOPAS All right reserved.
  */
-public class EgovImgPaginationRenderer extends AbstractPaginationRenderer implements ServletContextAware{
+public class EgovTextPaginationRenderer extends AbstractPaginationRenderer implements ServletContextAware{
 
 	private ServletContext servletContext;
 
-	public EgovImgPaginationRenderer() {
+	public EgovTextPaginationRenderer() {
 		// no-op
 	}
 

@@ -16,7 +16,7 @@
 			${id}
 			, #{text1}
 			, #{text2}
-			, #{createDate, jdbcType=DATE}
+			, #{createDate, jdbcType=TIMESTAMP}
 		)
 	</insert>
 	
@@ -29,21 +29,26 @@
 	
 	<select id="getSample" parameterType="com.sample.vo.TSample" resultType="com.sample.vo.TSample">
 		select
-		<choose>
-			<when test="queryType == 'cnt'">
-				count(id) as count
-			</when>
-			<otherwise>
-				id
-				, text1
-				, text2
-				, create_date as createDate
-			</otherwise>
-		</choose>
-		from t_sample
-		<if test="id != null">
-		where id = ${id}
-		</if>
+			zzz.*
+		from(
+			select
+				count(id) over() as totalCnt
+				,zz.*
+			from(
+				select
+					row_number() over (order by id desc) rnum
+					, id
+					, text1
+					, text2
+					, create_date as createDate
+				from t_sample
+			) zz
+				 
+		) zzz
+		where 1 = 1
+			<if test="pagingStart != null and pagingEnd != null">
+				and zzz.rnum between ${pagingStart} and ${pagingEnd}
+			</if>
 	</select>
 	
 	<select id="cacheSample" resultType="com.sample.vo.TSample">
