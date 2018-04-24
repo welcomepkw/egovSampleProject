@@ -18,6 +18,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sample.common.exception.BadReqeustException;
 import com.sample.service.SampleService;
@@ -89,12 +90,93 @@ public class SampleController {
 		return "sample/list";
 	}
 	
+	@RequestMapping(value="/popupList.do", method=RequestMethod.GET)
+	public String popupList(
+				@ModelAttribute TSample tSample
+				, Model model
+			) throws SQLException{
+		
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(tSample.getCurrentPageNo()); //현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(pagingRowCnt); //한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(pagingPageSize); //페이징 리스트의 사이즈
+ 
+		// 페이징 처리를 위해 쿼리에 시작, 종료 값 전달
+		int pagingStart = paginationInfo.getFirstRecordIndex() + 1;
+	    int pagingEnd = (pagingStart-1) + paginationInfo.getRecordCountPerPage();
+
+		tSample.setPagingStart(pagingStart);
+		tSample.setPagingEnd(pagingEnd);
+ 
+		// get datas from DB
+		List<TSample> datas = sampleService.getSample(tSample);
+		
+		// set totalCnt
+		if(datas != null && datas.size() > 0){
+			paginationInfo.setTotalRecordCount(datas.get(0).getTotalCnt()); //전체 게시물 건 수
+		}else{
+			paginationInfo.setTotalRecordCount(0);
+		}
+		
+ 
+		//페이징 관련 정보가 있는 PaginationInfo 객체를 모델에 반드시 넣어준다.
+		model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("datas", datas);
+		
+		
+		return "sample/popup/list";
+	}
+	
+	@RequestMapping(value="/testList.do", method=RequestMethod.GET)
+	public String testList(
+				@ModelAttribute TSample tSample
+				, Model model
+			) throws SQLException{
+		
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(tSample.getCurrentPageNo()); //현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(pagingRowCnt); //한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(pagingPageSize); //페이징 리스트의 사이즈
+ 
+		// 페이징 처리를 위해 쿼리에 시작, 종료 값 전달
+		int pagingStart = paginationInfo.getFirstRecordIndex() + 1;
+	    int pagingEnd = (pagingStart-1) + paginationInfo.getRecordCountPerPage();
+
+		tSample.setPagingStart(pagingStart);
+		tSample.setPagingEnd(pagingEnd);
+ 
+		// get datas from DB
+		List<TSample> datas = sampleService.getSample(tSample);
+		
+		// set totalCnt
+		if(datas != null && datas.size() > 0){
+			paginationInfo.setTotalRecordCount(datas.get(0).getTotalCnt()); //전체 게시물 건 수
+		}else{
+			paginationInfo.setTotalRecordCount(0);
+		}
+		
+ 
+		//페이징 관련 정보가 있는 PaginationInfo 객체를 모델에 반드시 넣어준다.
+		model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("datas", datas);
+		
+		
+		return "sample/test/list";
+	}
+	
+	
 	/**
 	 * create page
 	 * @return
 	 */
 	@RequestMapping(value="/create.do", method=RequestMethod.GET)
-	public String create(){
+	public String create(Model model){
+		
+		String testVal = "<p><font size=\"4\"><b>1. Reason &amp; Description</b></font></p><p><span style=\"FONT-SIZE: 11pt; FONT-FAMILY: 맑은 고딕\">B777 항공기에서 발생한 NO LAND 3 결함과 관련하여 고장탐구 및 작업 착안 사항을 공지하고자 함</span><br /><br /><font size=\"4\"><b>2. Technical Information &amp; Required Action</b></font> </p>";
+	
+		model.addAttribute("testVal", testVal);
 		return "sample/create";
 	}
 	

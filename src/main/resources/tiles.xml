@@ -9,4 +9,17 @@
 	<definition name="*/*" extends="default">
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
 	</definition>
+	
+	<definition name="*/popup/*" template="/WEB-INF/jsp/layout/templatePopup.jsp">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/popup/{2}.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/layout/footer.jsp" />
+	</definition>
+	
+	
+	<definition name="*/*/*"  template="/WEB-INF/jsp/layout/templateTest.jsp">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+	</definition>
+	
+	
+	
 </tiles-definitions>

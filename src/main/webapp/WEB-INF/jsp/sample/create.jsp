@@ -14,6 +14,9 @@
 		<div>
 			<button type="submit" id="sumbitBtn">submit</button>
 		</div>
+		<div>
+			<textarea rows="" cols="" name="testVal">${testVal }</textarea>
+		</div>
 	</form>
 </div>
 <script type="text/javascript">

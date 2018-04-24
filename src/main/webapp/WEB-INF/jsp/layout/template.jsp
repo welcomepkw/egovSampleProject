@@ -9,7 +9,7 @@
 <head>
 <title>sample project</title>
 <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/style.css"/>'>
-<script type="text/javascript" src='<c:url value="/resources/vender/jquery/jquery-1.12.5.min.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/vendor/jquery/jquery-1.12.5.min.js"/>'></script>
 </head>
 <body>
 <tiles:insertAttribute name="menu"/>
@@ -17,8 +17,8 @@
 	<tiles:insertAttribute name="body"/>
 </div>
 <tiles:insertAttribute name="footer"/>
-<script type="text/javascript" src='<c:url value="/resources/vender/jquery_validate/jquery.validate-1.17.0.min.js"/>'></script>
-<script type="text/javascript" src='<c:url value="/resources/vender/jquery_validate/additional-methods.min.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/vendor/jquery_validate/jquery.validate-1.17.0.min.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/vendor/jquery_validate/additional-methods.min.js"/>'></script>
 </body>
 </html>
 
