@@ -21,7 +21,7 @@ public class SchedulerService {
 	 * fixedDelay : 이전에 실행된 Task의 종료시간으로 부터 정의된 시간만큼 지난 후 Task를 실행한다.(밀리세컨드 단위)
 	 * fixedRate : 이전에 실행된 Task의 시작시간으로 부터 정의된 시간만큼 지난 후 Task를 실행한다.(밀리세컨드 단위)
 	 * 
-	 * 기본 thread-pool 은 1개이다. 추가 설정이 필요할 경우 context-scheduler.xml 파일 수정.
+	 * scheduler thread pool size 등 설정이 필요할 경우 context-scheduler.xml 파일 수정
 	 **/
 	@Scheduled(cron="*/30 * * * * *") 
 	public void scheduleTest(){
