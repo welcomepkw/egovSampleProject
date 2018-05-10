@@ -102,6 +102,11 @@ samples
 		* settings : context-fileUpload.xml, context-customBeans.xml
 	* test : /file/file.do
 	* description : /KAL_DEV/upload 에 파일 업로드 기능 구현. browser로 업로드 파일 test 하기 위해서는 local PC 에 web server 구동 필요.
+* scheduler Sample
+	* common info
+		* service : SchedulerService.java		
+		* settings : context-scheduler.xml
+	* description : @Scheduled 어노테이션으로 설정 되어 있으며 상세 내용은 주석 참조 
 	
 change log
 -------------
@@ -116,6 +121,8 @@ change log
 	* /src/main/resources/config/database 와 /src/main/resources/config/system 에 각 서버 별 빈 설정파일 추가. 
 * 18.03.08
 	* egov paging 처리 추가 및 기존 list 출력 샘플 query 수정
+* 18.05.10
+	* scheduler 추가
 	
 	
 	
